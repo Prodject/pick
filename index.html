@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    div.Pp { margin: 1ex 0ex; }
+  </style>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>PICK(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PICK(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">PICK(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<h1 class="Sh" title="Sh" id="NAME"><a class="selflink" href="#NAME">NAME</a></h1>
+<b class="Nm" title="Nm">pick</b> &#x2014; <span class="Nd" title="Nd">fuzzy
+  select anything</span>
+<h1 class="Sh" title="Sh" id="SYNOPSIS"><a class="selflink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><b class="Nm" title="Nm">pick</b></td>
+    <td>[<span class="Op"><b class="Fl" title="Fl">-hvKS</b></span>]
+      [<span class="Op"><b class="Fl" title="Fl">-d</b>
+      [<span class="Op"><b class="Fl" title="Fl">-o</b></span>]</span>]
+      [<span class="Op"><b class="Fl" title="Fl">-x</b> |
+      <b class="Fl" title="Fl">-X</b></span>]
+      [<span class="Op"><b class="Fl" title="Fl">-q</b>
+      <var class="Ar" title="Ar">query</var></span>]</td>
+  </tr>
+</table>
+<h1 class="Sh" title="Sh" id="DESCRIPTION"><a class="selflink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b class="Nm" title="Nm">pick</b> utility allows users to select from a set
+  of choices using an <a class="Xr" title="Xr" href="https://man.openbsd.org/curses.3">curses(3)</a>
+  interface with fuzzy search functionality.
+<div class="Pp"></div>
+The choices are read from <i class="Pa" title="Pa">stdin</i>, and the selected
+  choice written to <i class="Pa" title="Pa">stdout</i>.
+<div class="Pp"></div>
+The options are as follows:
+<dl class="Bl-tag" style="margin-left: 12.60ex;">
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#d"><b class="Fl" title="Fl" id="d">-d</b></a></dt>
+  <dd class="It-tag">Read and display descriptions. Input lines will be split
+      into two parts by the last occurrence of
+      <code class="Ev" title="Ev">IFS</code>. Both parts will be displayed but
+      only the first part will be used when searching.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#h"><b class="Fl" title="Fl" id="h">-h</b></a></dt>
+  <dd class="It-tag">Output a help message and exit.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#K"><b class="Fl" title="Fl" id="K">-K</b></a></dt>
+  <dd class="It-tag">Disable toggling of keypad transmit mode. Useful when
+      running <b class="Nm" title="Nm">pick</b> from within another interactive
+      program which already has set the correct transmit mode.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#o"><b class="Fl" title="Fl" id="o">-o</b></a></dt>
+  <dd class="It-tag">Output description of selected choice on exit.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#q"><b class="Fl" title="Fl" id="q">-q</b></a>
+    <var class="Ar" title="Ar">query</var></dt>
+  <dd class="It-tag">Supply an initial search query.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#S"><b class="Fl" title="Fl" id="S">-S</b></a></dt>
+  <dd class="It-tag">Disable sorting. Only filter the choices instead of
+      additionally sorting by score. This option can be toggled from within the
+      interface, see
+    <a class="Sx" title="Sx" href="#COMMANDS">COMMANDS</a>.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#v"><b class="Fl" title="Fl" id="v">-v</b></a></dt>
+  <dd class="It-tag">Output the version and exit.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#x"><b class="Fl" title="Fl" id="x">-x</b></a></dt>
+  <dd class="It-tag">Enable the use of the alternate screen terminal feature.
+      This is the default.</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#X"><b class="Fl" title="Fl" id="X">-X</b></a></dt>
+  <dd class="It-tag">Disable the use of the alternate screen terminal
+    feature.</dd>
+</dl>
+<h1 class="Sh" title="Sh" id="COMMANDS"><a class="selflink" href="#COMMANDS">COMMANDS</a></h1>
+<dl class="Bl-tag" style="margin-left: 7.80ex;">
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-C"><b class="Ic" title="Ic" id="Ctrl-C">Ctrl-C</b></a></dt>
+  <dd class="It-tag">Exit with a erroneous status without outputting the
+      selected choice. While this command often being defined as Ctrl-C it is
+      determined by the <code class="Dv" title="Dv">VINTR</code> control
+      character, see
+    <a class="Xr" title="Xr" href="https://man.openbsd.org/termios.4">termios(4)</a>.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-L"><b class="Ic" title="Ic" id="Ctrl-L">Ctrl-L</b></a></dt>
+  <dd class="It-tag">Redraw interface with respect to the current size of the
+      terminal.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-O"><b class="Ic" title="Ic" id="Ctrl-O">Ctrl-O</b></a></dt>
+  <dd class="It-tag">Toggle sorting.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Up"><b class="Ic" title="Ic" id="Up">Up</b></a>/<b class="Ic" title="Ic">Down</b>
+    |
+    <a class="selflink" href="#Ctrl-P"><b class="Ic" title="Ic" id="Ctrl-P">Ctrl-P</b></a>/<b class="Ic" title="Ic">Ctrl-N</b></dt>
+  <dd class="It-tag">Select between choices matching the current search
+    query.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Page-Down"><b class="Ic" title="Ic" id="Page-Down">Page-Down</b></a>/<b class="Ic" title="Ic">Page-Up</b>
+    |
+    <a class="selflink" href="#Ctrl-V"><b class="Ic" title="Ic" id="Ctrl-V">Ctrl-V</b></a>/<b class="Ic" title="Ic">Alt-V</b>
+    |
+    <a class="selflink" href="#Alt-Space"><b class="Ic" title="Ic" id="Alt-Space">Alt-Space</b></a></dt>
+  <dd class="It-tag">Move the selection to the choice located one page down/up
+      from the currently selected choice.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Home"><b class="Ic" title="Ic" id="Home">Home</b></a>/<b class="Ic" title="Ic">End</b>
+    |
+    <a class="selflink" href="#Alt-&lt;"><b class="Ic" title="Ic" id="Alt-&lt;">Alt-&lt;</b></a>/<b class="Ic" title="Ic">Alt-&gt;</b></dt>
+  <dd class="It-tag">Move the selection to the first/last choice matching the
+      current search query.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Enter"><b class="Ic" title="Ic" id="Enter">Enter</b></a></dt>
+  <dd class="It-tag">Output the currently selected choice and exit.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Alt-Enter"><b class="Ic" title="Ic" id="Alt-Enter">Alt-Enter</b></a></dt>
+  <dd class="It-tag">Output the current input query and exit.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Left"><b class="Ic" title="Ic" id="Left">Left</b></a>/<b class="Ic" title="Ic">Right</b>
+    |
+    <a class="selflink" href="#Ctrl-B"><b class="Ic" title="Ic" id="Ctrl-B">Ctrl-B</b></a>/<b class="Ic" title="Ic">Ctrl-F</b></dt>
+  <dd class="It-tag">Move the cursor left and right in the search query input
+      field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-A"><b class="Ic" title="Ic" id="Ctrl-A">Ctrl-A</b></a></dt>
+  <dd class="It-tag">Move the cursor to the beginning of the line in the search
+      query input field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-E"><b class="Ic" title="Ic" id="Ctrl-E">Ctrl-E</b></a></dt>
+  <dd class="It-tag">Move the cursor to the end of the line in the search query
+      input field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Backspace"><b class="Ic" title="Ic" id="Backspace">Backspace</b></a>
+    |
+    <a class="selflink" href="#Ctrl-H"><b class="Ic" title="Ic" id="Ctrl-H">Ctrl-H</b></a></dt>
+  <dd class="It-tag">Delete one character to the left of the cursor in the
+      search query input field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Delete"><b class="Ic" title="Ic" id="Delete">Delete</b></a>
+    |
+    <a class="selflink" href="#Ctrl-D"><b class="Ic" title="Ic" id="Ctrl-D">Ctrl-D</b></a></dt>
+  <dd class="It-tag">Delete the character under the cursor in the search query
+      input field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-W"><b class="Ic" title="Ic" id="Ctrl-W">Ctrl-W</b></a>
+    |
+    <a class="selflink" href="#Alt-Backspace"><b class="Ic" title="Ic" id="Alt-Backspace">Alt-Backspace</b></a></dt>
+  <dd class="It-tag">Delete the word to the left of the cursor. A word is
+      recognized as a sequence of characters for which either
+      <a class="Xr" title="Xr" href="https://man.openbsd.org/isalnum.3">isalnum(3)</a> is true or the
+      character is an underscore.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-U"><b class="Ic" title="Ic" id="Ctrl-U">Ctrl-U</b></a></dt>
+  <dd class="It-tag">Delete to the beginning of the line in the search query
+      input field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Ctrl-K"><b class="Ic" title="Ic" id="Ctrl-K">Ctrl-K</b></a></dt>
+  <dd class="It-tag">Delete to the end of the line in the search query input
+      field.</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -7.80ex;"><a class="selflink" href="#Printable_characters"><b class="Ic" title="Ic" id="Printable_characters">Printable
+    characters</b></a></dt>
+  <dd class="It-tag">Added to the search query and will refine the current
+      search.</dd>
+</dl>
+<h1 class="Sh" title="Sh" id="ENVIRONMENT"><a class="selflink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+The following environment variables will affect the execution of
+  <b class="Nm" title="Nm">pick</b>:
+<dl class="Bl-tag" style="margin-left: 6.60ex;">
+  <dt class="It-tag" style="margin-left: -6.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -6.60ex;"><a class="selflink" href="#IFS"><code class="Ev" title="Ev" id="IFS">IFS</code></a></dt>
+  <dd class="It-tag">Determines the separator used between choices and
+      descriptions.</dd>
+</dl>
+<h1 class="Sh" title="Sh" id="ASYNCHRONOUS_EVENTS"><a class="selflink" href="#ASYNCHRONOUS_EVENTS">ASYNCHRONOUS
+  EVENTS</a></h1>
+<dl class="Bl-tag" style="margin-left: 12.60ex;">
+  <dt class="It-tag" style="margin-left: -12.60ex;">&#x00A0;</dt>
+  <dd class="It-tag">&#x00A0;</dd>
+  <dt class="It-tag" style="margin-left: -12.60ex;"><a class="selflink" href="#SIGWINCH"><code class="Dv" title="Dv" id="SIGWINCH">SIGWINCH</code></a></dt>
+  <dd class="It-tag">The screen is resized.</dd>
+</dl>
+<h1 class="Sh" title="Sh" id="EXAMPLES"><a class="selflink" href="#EXAMPLES">EXAMPLES</a></h1>
+Select a file in the current directory to open using
+  <a class="Xr" title="Xr" href="xdg-open.1">xdg-open(1)</a>:
+<div class="Pp"></div>
+<div class="D1"><code class="Li">$ find -type f | pick | xargs
+  xdg-open</code></div>
+<div class="Pp"></div>
+Select a command from the history to execute:
+<div class="Pp"></div>
+<div class="D1"><code class="Li">$ eval $(fc -ln 1 | pick)</code></div>
+<h1 class="Sh" title="Sh" id="DIAGNOSTICS"><a class="selflink" href="#DIAGNOSTICS">DIAGNOSTICS</a></h1>
+The <b class="Nm" title="Nm">pick</b> utility exits&#x00A0;0 on success,
+  and&#x00A0;&gt;0 if an error occurs.
+<h1 class="Sh" title="Sh" id="HISTORY"><a class="selflink" href="#HISTORY">HISTORY</a></h1>
+The first version of <b class="Nm" title="Nm">pick</b> was released on August
+  18, 2014. Development was sponsored by
+  <a class="Lk" title="Lk" href="https://thoughtbot.com">thoughtbot</a> from the
+  start of the project until September 2016.
+<h1 class="Sh" title="Sh" id="AUTHORS"><a class="selflink" href="#AUTHORS">AUTHORS</a></h1>
+<span class="An" title="An">Calle Erlandsson</span>
+  &lt;<a class="Mt" title="Mt" href="mailto:calle@calleerlandsson.com">calle@calleerlandsson.com</a>&gt;
+<br/>
+<span class="An" title="An">Anton Lindqvist</span>
+  &lt;<a class="Mt" title="Mt" href="mailto:anton.lindqvist@gmail.com">anton.lindqvist@gmail.com</a>&gt;</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">August 17, 2014</td>
+    <td class="foot-os">OpenBSD 6.3</td>
+  </tr>
+</table>
+</body>
+</html>
